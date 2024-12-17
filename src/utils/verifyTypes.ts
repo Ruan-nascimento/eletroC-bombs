@@ -1,30 +1,27 @@
 import { prisma } from "@/services/client/prismaClient"
 
 export default async function VerifyTypes(type:string, id:string) {
-  const rpmVerify = await prisma.item.findMany({
+  const verify = await prisma.item.findMany({
         where: {
           OR: [
             {amp: Number(type)},
-            {hp: type},
-            {model: type},
-            {rpm: type},
+            {hp: type.toString()},
+            {rpm: type.toString()},
             {capacitor: Number(type)}
           ]
         }
       })
-    
-    console.log(rpmVerify)
-    if(!rpmVerify){
+    if(!verify){
       return
     }
 
-    if(rpmVerify.length <= 1){
+    if(verify.length <= 1){
       await prisma.type.deleteMany({
         where: {
           value: type
         }
       })
-    } else if(rpmVerify.length > 1) {
+    } else if(verify.length > 1) {
       await prisma.type.delete({
         where: {
           id: id

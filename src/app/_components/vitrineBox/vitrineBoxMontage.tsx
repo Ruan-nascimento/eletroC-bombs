@@ -23,14 +23,12 @@ export default function VitrineBoxMontage(props: VitrineBoxProps) {
 
   async function handleEditButton(){
     'use server'
-    console.log(props.model)
     redirect(`/changes/${props.id}`)
   }
 
   async function handleDestructButton() {
     'use server'
     VerifyTypes(props.rpm, props.id)
-    VerifyTypes(props.model, props.id)
     VerifyTypes(props.amp.toString(), props.id)
     VerifyTypes(props.capacitor.toString(), props.id)
     VerifyTypes(props.hp, props.id)
